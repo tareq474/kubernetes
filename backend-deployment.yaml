@@ -1,0 +1,35 @@
+backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: laravel-backend
+  template:
+    metadata:
+      labels:
+        app: laravel-backend
+    spec:
+      containers:
+        - name: laravel-backend
+          image: your-dockerhub/laravel-backend:latest
+          envFrom:
+            - configMapRef:
+                name: laravel-config
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9000
+  selector:
+    app: laravel-backend
