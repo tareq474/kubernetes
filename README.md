@@ -20,12 +20,16 @@ Step 1: Build & Push Images
 
 # Build & push Vue.js frontend
 docker build -t tarequl/frontend:v1 .
+
 docker login -u tarequl -p password
+
 docker push tarequl/frontend:v1
 
 
 # Build & push Laravel backend
+
 docker build -t tarequl/backend:v1 .
+
 docker push tarequl/backend:v1
 
 Step 2: Apply Manifests
